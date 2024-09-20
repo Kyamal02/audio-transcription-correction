@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from main.main import clean_text, correct_text_with_yandex_speller, transcribe_file
+from main import clean_text, correct_text_with_yandex_speller, transcribe_file
 
 
 # Тест для функции очистки текста
