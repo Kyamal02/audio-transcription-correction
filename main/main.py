@@ -2,6 +2,7 @@ import streamlit as st
 import whisper
 import requests
 import re
+import tempfile
 
 
 # Функция для загрузки модели Whisper
@@ -52,14 +53,16 @@ st.title("Whisper и Яндекс.Спеллер интеграция")
 # Загрузка файла
 uploaded_file = st.file_uploader("Загрузите аудио или видео файл", type=["mp3", "mp4", "wav"])
 
+
 if uploaded_file is not None:
-    # Сохранение файла
-    with open(uploaded_file.name, "wb") as f:
-        f.write(uploaded_file.getbuffer())
+    # Сохранение файла во временное место
+    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+        tmp_file.write(uploaded_file.getbuffer())
+        tmp_file_path = tmp_file.name
 
     # Транскрипция файла
     st.text("Транскрибирование файла...")
-    transcription = transcribe_file(uploaded_file.name)
+    transcription = transcribe_file(tmp_file_path)
 
     # Очистка текста
     cleaned_transcription = clean_text(transcription)

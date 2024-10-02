@@ -1,4 +1,5 @@
 streamlit
 requests
 pytest
+tempfile
 git+https://github.com/openai/whisper.git
