@@ -8,7 +8,7 @@ import tempfile
 # Функция для загрузки модели Whisper
 @st.cache_resource
 def load_whisper_model():
-    return whisper.load_model("medium")
+    return whisper.load_model("small")
 
 # Функция для обработки аудио или видео файла и транскрибирования текста
 def transcribe_file(file_path):
@@ -71,9 +71,6 @@ if uploaded_file is not None:
     st.text("Исправление орфографии...")
     corrected_transcription = correct_text_with_yandex_speller(cleaned_transcription)
 
-    # Вывод результатов
-    st.subheader("Транскрибированный и исправленный текст:")
-    st.text(corrected_transcription)
 
     # Скачивание исправленного текста
     st.download_button("Скачать текст", corrected_transcription, file_name="transcription_corrected.txt")
