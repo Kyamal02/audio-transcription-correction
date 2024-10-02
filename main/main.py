@@ -6,9 +6,9 @@ import tempfile
 
 
 # Функция для загрузки модели Whisper
+@st.cache_resource
 def load_whisper_model():
-    return whisper.load_model("small")
-
+    return whisper.load_model("tiny")
 
 # Функция для обработки аудио или видео файла и транскрибирования текста
 def transcribe_file(file_path):
