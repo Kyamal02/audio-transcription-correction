@@ -30,3 +30,5 @@ def test_transcribe_file(mock_load_model):
 
     result = transcribe_file("test.mp3")
     assert result == "Это транскрибированный текст", "Функция должна возвращать правильный транскрибированный текст"
+
+
