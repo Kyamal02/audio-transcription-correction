@@ -13,7 +13,7 @@ def load_whisper_model():
 # Функция для обработки аудио или видео файла и транскрибирования текста
 def transcribe_file(file_path):
     whisper_model = load_whisper_model()
-    result = whisper_model.transcribe(file_path, language='ru')
+    result = whisper_model.transcribe(file_path)
     transcription = result['text']
     return transcription
 
