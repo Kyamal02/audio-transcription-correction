@@ -21,7 +21,7 @@ def test_correct_text_with_yandex_speller(mock_get):
     assert corrected_text == "тест", "Текст должен быть исправлен"
 
 # Исправленный тест для транскрибирования файла
-@patch('main.whisper.load_model')  # Патчим правильный путь
+@patch('main.main.whisper.load_model')  # Патчим правильный путь
 def test_transcribe_file(mock_load_model):
     mock_model = mock_load_model.return_value
     mock_model.transcribe.return_value = {'text': 'Это транскрибированный текст'}
