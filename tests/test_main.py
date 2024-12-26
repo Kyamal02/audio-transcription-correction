@@ -32,3 +32,43 @@ def test_transcribe_file(mock_load_model):
     assert result == "Это транскрибированный текст", "Функция должна возвращать правильный транскрибированный текст"
 
 
+import os
+
+from main import transcribe_file, clean_text, correct_text_with_yandex_speller
+
+def test_integration_whisper_and_speller():
+    """
+    Интеграционный тест, который проверяет всю цепочку:
+    1) Транскрибирование аудио через Whisper (реальная модель).
+    2) Очистку текста от лишних пробелов.
+    3) Исправление орфографии через реальное API Яндекс.Спеллера.
+    """
+
+    # Укажите путь к тестовому аудиофайлу
+    test_file_path = "tests/data/test_audio.mp3"
+    assert os.path.exists(test_file_path), (
+        f"Тестовый аудиофайл не найден: {test_file_path}"
+    )
+
+    # 1) Транскрибируем аудио (Whisper)
+    transcription = transcribe_file(test_file_path)
+    assert transcription, "Транскрибированный текст пуст — возможно сбой в Whisper."
+
+    # 2) Очищаем текст
+    cleaned = clean_text(transcription)
+    assert cleaned, "После очистки текст почему-то стал пустым."
+
+    # 3) Проверяем орфографию через Яндекс.Спеллер (реальный запрос)
+    corrected = correct_text_with_yandex_speller(cleaned)
+    assert corrected, "После исправления орфографии текст оказался пустым."
+
+    # Если хотите, можете добавить дополнительную проверку,
+    # например, что хоть что-то в тексте поменялось (если были ошибки).
+    # Но если в тестовом файле нет ошибок, текст может остаться таким же.
+    # assert corrected != cleaned, "Текст не изменился — возможно, не было ошибок или сервис недоступен?"
+
+    print("Интеграционный тест прошёл успешно!")
+
+
+
+
