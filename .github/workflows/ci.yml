@@ -29,17 +29,18 @@ jobs:
       - name: Verify FFmpeg installation
         run: ffmpeg -version
 
+      # Скачивание тестовых данных
+      - name: Download test data
+        run: |
+          mkdir -p tests/data
+          wget -O tests/data/test_audio.mp3 https://raw.githubusercontent.com/Kyamal02/audio-transcription-correction/main/tests/data/test_audio.mp3
+          wget -O tests/data/expected_output.txt https://raw.githubusercontent.com/Kyamal02/audio-transcription-correction/main/tests/data/expected_output.txt
+
       # Установка зависимостей
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      # Проверка наличия тестовых данных
-      - name: Verify test data
-        run: |
-          ls -la tests/data
-          cat tests/data/expected_output.txt
 
       # Запуск тестов
       - name: Run tests
