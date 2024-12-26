@@ -2,13 +2,11 @@ import pytest
 from unittest.mock import patch
 from main import clean_text, correct_text_with_yandex_speller, transcribe_file
 
-
 # Тест для функции очистки текста
 def test_clean_text():
     text = "  Это   тест   "
     cleaned = clean_text(text)
     assert cleaned == "Это тест", "Текст должен быть очищен от лишних пробелов"
-
 
 # Тест для проверки орфографии
 @patch('requests.get')  # Исправлено на прямое обращение к requests
@@ -22,8 +20,8 @@ def test_correct_text_with_yandex_speller(mock_get):
 
     assert corrected_text == "тест", "Текст должен быть исправлен"
 
-
-@patch('whisper.load_model')
+# Исправленный тест для транскрибирования файла
+@patch('main.whisper.load_model')  # Патчим правильный путь
 def test_transcribe_file(mock_load_model):
     mock_model = mock_load_model.return_value
     mock_model.transcribe.return_value = {'text': 'Это транскрибированный текст'}
