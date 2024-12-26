@@ -12,8 +12,8 @@ def test_integration_whisper_and_speller():
     И затем сравнивает результат с эталонным текстовым файлом.
     """
 
-    test_file_path = "tests/data/test_audio.mp3"
-    expected_file_path = "tests/data/expected_output.txt"
+    test_file_path = "data/test_audio.mp3"
+    expected_file_path = "data/expected_output.txt"
 
     # Проверяем, что оба файла существуют
     assert os.path.exists(test_file_path), (
