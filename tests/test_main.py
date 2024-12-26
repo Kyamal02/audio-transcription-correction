@@ -44,7 +44,6 @@ def test_integration_whisper_and_speller():
     3) Исправление орфографии через реальное API Яндекс.Спеллера.
     """
 
-    # Укажите путь к тестовому аудиофайлу
     test_file_path = "tests/data/test_audio.mp3"
     assert os.path.exists(test_file_path), (
         f"Тестовый аудиофайл не найден: {test_file_path}"
@@ -62,10 +61,7 @@ def test_integration_whisper_and_speller():
     corrected = correct_text_with_yandex_speller(cleaned)
     assert corrected, "После исправления орфографии текст оказался пустым."
 
-    # Если хотите, можете добавить дополнительную проверку,
-    # например, что хоть что-то в тексте поменялось (если были ошибки).
-    # Но если в тестовом файле нет ошибок, текст может остаться таким же.
-    # assert corrected != cleaned, "Текст не изменился — возможно, не было ошибок или сервис недоступен?"
+
 
     print("Интеграционный тест прошёл успешно!")
 
