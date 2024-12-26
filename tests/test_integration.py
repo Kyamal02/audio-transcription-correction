@@ -12,8 +12,13 @@ def test_integration_whisper_and_speller():
     И затем сравнивает результат с эталонным текстовым файлом.
     """
 
-    test_file_path = "data/test_audio.mp3"
-    expected_file_path = "data/expected_output.txt"
+    test_file_path = os.path.join("tests", "data", "test_audio.mp3")
+    expected_file_path = os.path.join("tests", "data", "expected_output.txt")
+
+    # Проверяем текущую рабочую директорию
+    print("Текущая рабочая директория:", os.getcwd())
+    print("Содержимое текущей директории:", os.listdir("."))
+    print("Содержимое папки tests/data:", os.listdir("tests/data"))
 
     # Проверяем, что оба файла существуют
     assert os.path.exists(test_file_path), (
@@ -47,7 +52,7 @@ def test_integration_whisper_and_speller():
     similarity = difflib.SequenceMatcher(None, corrected.strip(), expected_text).ratio()
     print(f"Коэффициент похожести: {similarity:.2f}")
 
-    # Устанавливаем порог похожести, например, 90%
+    # Устанавливаем порог похожести
     assert similarity > 0.9, (
         f"Итоговый текст не совпадает с ожидаемым результатом. Коэффициент похожести: {similarity:.2f}"
     )
